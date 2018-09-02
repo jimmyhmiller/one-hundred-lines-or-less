@@ -31,10 +31,10 @@ I'd love to start a youtube series where we do live programming and implement in
 ## Ideas
 
 - [ ] Blockchain
-- [ ] Dependency Injector
+- [x] Dependency Injector
 - [ ] Editor
 - [ ] Finite State Machine
-- [ ] Fizzbuzz No Booleans
+- [x] Fizzbuzz No Booleans
 - [ ] Flask
 - [ ] Forth Interpreter/Compiler
 - [ ] Functional Seq Interface
@@ -47,15 +47,15 @@ I'd love to start a youtube series where we do live programming and implement in
 - [ ] Markdown Parser
 - [ ] Multi-methods
 - [ ] Neural Network
-- [ ] Object System
+- [x] Object System
 - [ ] Parser
-- [ ] Pattern Matcher
+- [x] Pattern Matcher
 - [ ] Promises
 - [ ] Protocols
 - [ ] Purely Functional Data Structures
-- [ ] Queries
+- [x] Query Engine
 - [ ] QuickCheck
-- [ ] Redux
+- [x] Redux
 - [ ] Redux Saga
 - [ ] Regex
 - [ ] Service Discovery
@@ -63,12 +63,12 @@ I'd love to start a youtube series where we do live programming and implement in
 - [ ] Turing machine
 - [ ] Type Inference
 - [ ] Type Safe Printf
-- [ ] Unifier
+- [x] Unifier
 - [ ] Various Monads
 - [ ] Virtual Dom
 
 
-# First Videos
+## Possible First Videos 
 
 * Lisp Interpreter - Clojure
 * Redux - Javascript
