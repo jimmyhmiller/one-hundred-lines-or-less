@@ -62,7 +62,7 @@ I'd love to start a youtube series where we do live programming and implement in
 - [ ] Testing Framework
 - [ ] Turing machine
 - [ ] Type Inference
-- [ ] Type Safe Printf
+- [x] Type Safe Printf
 - [x] Unifier
 - [ ] Various Monads
 - [ ] Virtual Dom
