@@ -1,9 +1,11 @@
 (ns unifier.core
   (:import (clojure.lang Sequential))
-  (:require [clojure.walk]))
+  (:require [clojure.walk]
+            [clojure.string :as string]))
 
 (defn variable? [x]
-  (symbol? x))
+  (and (symbol? x)
+       (string/starts-with? (name x) "?")))
 
 (defn add-var [env var val]
   (assoc env var val))
@@ -57,23 +59,23 @@
 (comment
 
   (-> {}
-      (unify 'x 2)
-      (unify 'y 'x)
-      (unify 'z 'y)
-      (lookup 'z))
+      (unify '?x 2)
+      (unify '?y '?x)
+      (unify '?z '?y)
+      (lookup '?z))
 
   (-> {}
-      (unify 'x 'y)
-      (unify 'y 'z)
-      (unify 'z 2)
-      (lookup 'x))
+      (unify '?x '?y)
+      (unify '?y '?z)
+      (unify '?z 2)
+      (lookup '?x))
 
 
   (-> {}
-      (unify 2 'x)
-      (unify 'x 'y)
-      (unify 'z 'y)
-      (lookup 'z))
+      (unify 2 '?x)
+      (unify '?x '?y)
+      (unify '?z '?y)
+      (lookup '?z))
 
 
-  (substitute '[{x 3} [x [x [x [x [x [[x]]]]]]]]))
+  (substitute '[{?x 3} [?x [?x [?x [?x [?x [[?x]]]]]]]]))

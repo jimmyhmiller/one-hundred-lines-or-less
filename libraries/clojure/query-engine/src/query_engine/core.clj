@@ -39,35 +39,35 @@
 
   
 
-  (q {:find {:name name}
-      :where [[_ :name name]]}
+  (q {:find {:name ?name}
+      :where [[?_ :name ?name]]}
      db)
 
 
-  (q {:find {:name name
-             :age age}
-      :where [[e :name name]
-              [e :age age]]}
-     db)
-
-
-
-
-  (q {:find {:name1 name1
-             :name2 name2}
-      :where [[e1 :name name1]
-              [e2 :name name2]
-              [e1 :age age]
-              [e2 :age age]]}
+  (q {:find {:name ?name
+             :age ?age}
+      :where [[?e :name ?name]
+              [?e :age ?age]]}
      db)
 
 
 
-  (q {:find {:name name
-             :address-line-1 address-line-1
-             :city city}
-      :where [[e :name name]
-              [a :address e]
-              [a :address-line-1 address-line-1]
-              [a :city city]]}
+
+  (q {:find {:name1 ?name1
+             :name2 ?name2}
+      :where [[?e1 :name ?name1]
+              [?e2 :name ?name2]
+              [?e1 :age ?age]
+              [?e2 :age ?age]]}
+     db)
+
+
+
+  (q {:find {:name ?name
+             :address-line-1 ?address-line-1
+             :city ?city}
+      :where [[?e :name ?name]
+              [?a :address ?e]
+              [?a :address-line-1 ?address-line-1]
+              [?a :city ?city]]}
      db))

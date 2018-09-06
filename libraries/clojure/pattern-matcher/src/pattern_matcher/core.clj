@@ -22,8 +22,6 @@
      (match args# ~@patterns)))
 
 
-
-
 (comment
   (match true
          true false
@@ -35,30 +33,30 @@
 
 
   (match [1 2 3]
-         [x]     {:x x}
-         [x y]   {:x x :y y}
-         [x y z] {:x x :y y :z z})
+         [?x]       {:x ?x}
+         [?x ?y]    {:x ?x :y ?y}
+         [?x ?y ?z] {:x ?x :y ?y :z ?z})
 
 
   (match [1 2 1]
-         [x y x] {:x x :y y}
-         [x y z] {:x x :y y :z z})
+         [?x ?y ?x] {:x ?x :y ?y}
+         [?x ?y ?z] {:x ?x :y ?y :z ?z})
 
 
   (defmatch fib
     [0] 0
     [1] 1
-    [n] (+ (fib (- n 1))
-           (fib (- n 2))))
+    [?n] (+ (fib (- ?n 1))
+            (fib (- ?n 2))))
 
 
   (fib 5)
   (fib 10)
 
   (defmatch get-x
-    [x] x
-    [x y] x
-    [x y z] x)
+    [?x] ?x
+    [?x ?y] ?x
+    [?x ?y ?z] ?x)
 
   (get-x 1)
   (get-x 1 2)
