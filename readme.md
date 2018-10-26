@@ -50,7 +50,7 @@ I'd love to start a youtube series where we do live programming and implement in
 - [x] Object System
 - [ ] Parser
 - [x] Pattern Matcher
-- [ ] Promises
+- [x] Promises
 - [ ] Protocols
 - [ ] Purely Functional Data Structures
 - [x] Query Engine
