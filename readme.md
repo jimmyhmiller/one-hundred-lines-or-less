@@ -57,7 +57,7 @@ I'd love to start a youtube series where we do live programming and implement in
 - [ ] QuickCheck
 - [x] Redux
 - [ ] Redux Saga
-- [ ] Regex
+- [x] Regex
 - [ ] Service Discovery
 - [ ] Testing Framework
 - [ ] Turing machine
