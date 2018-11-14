@@ -60,6 +60,7 @@ I'd love to start a youtube series where we do live programming and implement in
 - [ ] Redux Saga
 - [x] Regex
 - [ ] Service Discovery
+- [ ] Spreadsheet
 - [ ] Testing Framework
 - [ ] Turing machine
 - [ ] Type Inference
