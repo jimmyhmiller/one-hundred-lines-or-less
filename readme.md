@@ -31,6 +31,7 @@ I'd love to start a youtube series where we do live programming and implement in
 ## Ideas
 
 - [ ] Blockchain
+- [x] Celluar Automaton
 - [x] Dependency Injector
 - [ ] Editor
 - [ ] Finite State Machine
