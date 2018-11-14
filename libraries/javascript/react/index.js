@@ -1,7 +1,7 @@
 // Decent start, need to update elems/attrs
 // Also some general clean up
 
-const createElement = (tag, attrs, children) => ({
+const createElement = (tag, attrs, ...children) => ({
   tag,
   attrs,
   children,
@@ -47,9 +47,9 @@ const Input = () =>
     {value: "jimmy", onkeypress: (e) => console.log(e)},
     [])
 
-render(createElement("div", {}, [
+render(createElement("div", {},
   Input(),
   createElement("h1", {style: {color: "green"}},
-    [createElement("p", {},
-      ["Hello World"])])]),
+    createElement("p", {},
+      "Hello World"))),
   document.getElementById("app"))
