@@ -36,7 +36,7 @@ I'd love to start a youtube series where we do live programming and implement in
 - [ ] Editor
 - [ ] Finite State Machine
 - [x] Fizzbuzz No Booleans
-- [ ] Flask
+- [x] Flask
 - [ ] Forth Interpreter/Compiler
 - [ ] Functional Seq Interface
 - [x] Http Server
