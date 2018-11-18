@@ -38,7 +38,7 @@ def format_response(response):
     body = response["body"]
     formatted_headers = "\n".join(map(format_header, headers.iteritems()))
 
-    return "HTTP/1.0 {}\r\n{}\r\n\r\n{}".format(status, formatted_headers, body)
+    return "HTTP/1.1 {}\r\n{}\r\n\r\n{}".format(status, formatted_headers, body)
 
 def create_server(handler, host="127.0.0.1", port="8080"):
     print("starting server on port {}".format(port))
