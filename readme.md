@@ -39,6 +39,7 @@ I'd love to start a youtube series where we do live programming and implement in
 - [ ] Flask
 - [ ] Forth Interpreter/Compiler
 - [ ] Functional Seq Interface
+- [x] Http Server
 - [ ] Instarest
 - [ ] Json Parser
 - [ ] Key Value Store
