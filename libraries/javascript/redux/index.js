@@ -5,11 +5,10 @@ const applyMiddleware = (...middlewares) => (createStore) => (...args) => {
     const dispatch = middlewares
         .map(m => m(store))
         .reduce(compose)(store.dispatch)
-    return Object.assign(
-        {},
-        store,
-        {dispatch: dispatch}
-    )
+    return {
+        ...store,
+        dispatch,
+    }
 }
 
 const createStore = (reducer, initialState, enhancer) => {
