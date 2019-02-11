@@ -20,8 +20,10 @@ const createStore = (reducer, initialState, enhancer) => {
     return {
         subscribe: (f) => { 
             listeners.push(f);
-            const fsPosition = listeners.length - 1 
-            return () => listeners.splice(fsPosition, 1);
+            return () => {
+                const fsPosition = listeners.indexOf(f);
+                listeners.splice(fsPosition, 1)
+            }
         },
         getState: () => state,
         dispatch: (action) => {
