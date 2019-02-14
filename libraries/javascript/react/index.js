@@ -4,8 +4,53 @@
 const createElement = (tag, attrs, ...children) => ({
   tag,
   attrs,
-  children,
-})
+  children
+});
+
+let currentComponent = 0;
+let stateContainers = new Map();
+
+const dispatcher = (() => {
+  let subscribers = []
+  return {
+    subscribe: (f) => {
+      subscribers.push(f)
+    },
+    notify: () => {
+      subscribers.forEach(f => f())
+    }
+  }
+})()
+
+const useState = (initialState) => {
+  const scomp = String(currentComponent)
+  if (!stateContainers.has(scomp)) {
+    stateContainers.set(scomp, initialState)
+  }
+  const current = stateContainers.get(scomp)
+  const setState = (value) => {
+    stateContainers.set(scomp, value)
+    dispatcher.notify()
+  }
+  return [current, setState]
+}
+
+const expandVDom = (vdom) => {
+  if (typeof vdom === "string") {
+    return vdom
+  }
+  const { tag, attrs, children = [] } = vdom
+  if (tag && tag.bind) {
+    currentComponent += 1;
+    return expandVDom(tag({ ...attrs, children }));
+  } else {
+    return {
+      tag,
+      attrs,
+      children: children.map(expandVDom)
+    };
+  }
+};
 
 const createDomNode = ({ tag, children }) => {
   if (!tag) {
@@ -13,10 +58,10 @@ const createDomNode = ({ tag, children }) => {
   }
   const elem = document.createElement(tag);
   if (children.length === 1 && typeof children[0] === "string") {
-    elem.appendChild(document.createTextNode(children))
+    elem.appendChild(document.createTextNode(children));
   }
-  return elem
-}
+  return elem;
+};
 
 const setAttributes = (elem, attrs) => {
   if (attrs) {
@@ -39,17 +84,39 @@ const elementToDom = ({ tag, attrs, children }) => {
 }
 
 const render = (elem, node) => {
-  node.appendChild(elementToDom(elem))
+  const innerRender = () => {
+    if (!node.children.length) {
+      node.appendChild(elementToDom(expandVDom(elem)))
+    } else {
+      node.replaceChild(elementToDom(expandVDom(elem)), node.children[0])
+    }
+    currentComponent = 0;
+  }
+  dispatcher.subscribe(innerRender)
+  innerRender();
+
 }
 
-const Input = () => 
-  createElement("input", 
-    {value: "jimmy", onkeypress: (e) => console.log(e)},
-    [])
+const Button = ({ initialCount }) => {
+  const [count, setCount] = useState(initialCount)
+  return createElement("button", {
+    onclick: e => setCount(count+1)
+  }, String(count));
+}
 
-render(createElement("div", {},
-  Input(),
-  createElement("h1", {style: {color: "green"}},
-    createElement("p", {},
-      "Hello World"))),
-  document.getElementById("app"))
+const elem = createElement(
+  "div",
+  {},
+  createElement(Button, {initialCount: 0}),
+  createElement(Button, {initialCount: 10}),
+  createElement(
+    "h1",
+    { style: { color: "green" } },
+    createElement("p", {}, "Hello World")
+  )
+)
+
+render(elem, document.getElementById("app"));
+
+
+
