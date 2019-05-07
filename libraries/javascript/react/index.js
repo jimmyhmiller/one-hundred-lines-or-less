@@ -7,41 +7,14 @@ const createElement = (tag, attrs, ...children) => ({
   children
 });
 
-let currentComponent = 0;
-let stateContainers = new Map();
-
-const dispatcher = (() => {
-  let subscribers = []
-  return {
-    subscribe: (f) => {
-      subscribers.push(f)
-    },
-    notify: () => {
-      subscribers.forEach(f => f())
-    }
-  }
-})()
-
-const useState = (initialState) => {
-  const scomp = String(currentComponent)
-  if (!stateContainers.has(scomp)) {
-    stateContainers.set(scomp, initialState)
-  }
-  const current = stateContainers.get(scomp)
-  const setState = (value) => {
-    stateContainers.set(scomp, value)
-    dispatcher.notify()
-  }
-  return [current, setState]
-}
+const isFunction = (f) => f && f.bind;
 
 const expandVDom = (vdom) => {
   if (typeof vdom === "string") {
     return vdom
   }
   const { tag, attrs, children = [] } = vdom
-  if (tag && tag.bind) {
-    currentComponent += 1;
+  if (isFunction(tag)) { 
     return expandVDom(tag({ ...attrs, children }));
   } else {
     return {
@@ -84,31 +57,70 @@ const elementToDom = ({ tag, attrs, children }) => {
 }
 
 const render = (elem, node) => {
-  const innerRender = () => {
-    if (!node.children.length) {
-      node.appendChild(elementToDom(expandVDom(elem)))
-    } else {
-      node.replaceChild(elementToDom(expandVDom(elem)), node.children[0])
-    }
-    currentComponent = 0;
+  if (!node.children.length) {
+    node.appendChild(elementToDom(expandVDom(elem)))
+  } else {
+    node.replaceChild(elementToDom(expandVDom(elem)), node.children[0])
   }
-  dispatcher.subscribe(innerRender)
-  innerRender();
-
 }
+
+let callId = 0;
+let states = []
+
+const useState = (initialState) => {
+  const currentCall = callId;
+  callId += 1;
+
+  if (states[currentCall]) {
+    return states[currentCall]
+  }
+
+  const setState = (value) => {
+    states[currentCall][0] = value;
+    callId = 0;
+    React.forceUpdate()
+  }
+  const tuple = [initialState, setState]
+  states[currentCall] = tuple
+  return tuple
+}
+
+const React = (() => {
+  let _elem = null;
+  let _node = null;
+
+  return {
+    render: (elem, node) => {
+      _elem = elem;
+      _node = node;
+      return render(elem, node);
+    },
+    forceUpdate: () => {
+      React.render(_elem, _node)
+    },
+    useState: useState
+  }
+})()
 
 const Button = ({ initialCount }) => {
   const [count, setCount] = useState(initialCount)
+  const [error, setError] = useState(null)
   return createElement("button", {
-    onclick: e => setCount(count+1)
-  }, String(count));
+    onclick: e => { 
+      if (count >= 50) {
+        setError("Error!")
+      } else {
+        setCount(count+1)
+      }
+    }
+  }, String(error || count));
 }
 
 const elem = createElement(
   "div",
   {},
   createElement(Button, {initialCount: 0}),
-  createElement(Button, {initialCount: 10}),
+  createElement(Button, {initialCount: 40}),
   createElement(
     "h1",
     { style: { color: "green" } },
@@ -116,7 +128,7 @@ const elem = createElement(
   )
 )
 
-render(elem, document.getElementById("app"));
+React.render(elem, document.getElementById("app"));
 
 
 
