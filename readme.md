@@ -47,11 +47,15 @@ I'd love to start a youtube series where we do live programming and implement in
 - [ ] Lisp Interpreter
 - [ ] Logic Normalizer
 - [ ] Markdown Parser
+- [ ] Maze Generator
+- [ ] Maze Solver
 - [x] Multi-methods
 - [ ] Neural Network
 - [x] Object System
+- [ ] ORM
 - [ ] Parser
 - [x] Pattern Matcher
+- [ ] Platformer
 - [x] Promises
 - [ ] Protocols
 - [ ] Purely Functional Data Structures
