@@ -72,7 +72,7 @@ I'd love to start a youtube series where we do live programming and implement in
 - [x] Type Safe Printf
 - [x] Unifier
 - [ ] Various Monads
-- [ ] Virtual Dom
+- [x] Virtual Dom
 - [ ] Virtual Machine
 
 
